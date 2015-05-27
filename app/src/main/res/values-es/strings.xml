@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Mapa de Emergencia</string>
+    <string name="id">Identificación</string>
+    <string name="sender">Emisora</string>
+    <string name="received">Recibido</string>
+    <string name="status">Estado</string>
+    <string name="category">Categoría</string>
+    <string name="event_level">Evento a Nivel</string>
+    <string name="response_type">Respuesta de Tipo</string>
+    <string name="urgency">Urgencia</string>
+    <string name="severity">Gravedad</string>
+    <string name="certainty">Certeza</string>
+    <string name="effective">Eficaz</string>
+    <string name="expires">Vence</string>
+    <string name="info">Información Adicional</string>
+    <string name="address">Dirección</string>
+    <string name="map">Mapa</string>
+    <string name="emergencies">Emergencias</string>
+    <string name="preferences">Preferencias</string>
+    <string name="current_events">Acontecimientos de Actualidad</string>
+    <string name="future_events">Eventos Futuros</string>
+    <string name="past_events">Eventos Pasados</string>
+    <string name="advisory">Asesor</string>
+    <string name="watch">Alerta</string>
+    <string name="warning">Advertencia</string>
+    <string name="satellite_view_pref_title">Vista de Satélite</string>
+    <string name="satellite_view_pref_summary">Haga clic aquí para utilizar la vista de satélite en el mapa</string>
+    <string name="traffic_view_pref_title">Vista de Tráfico</string>
+    <string name="traffic_view_pref_summary">Haga clic aquí para utilizar la vista de tráfico en el mapa</string>
+    <string name="updated">Actualizado</string>
+    <string name="n">Nuevo</string>
+    <string name="emergency">Emergencia</string>
+    
+    <string name="DisplayonMap">Mostrar en el Mapa</string>
+	<string name="Delete">Borrar</string>
+	<string name="Cancel">Cancelar</string>
+	
+	<string name="Deleted">Evento ha sido eliminado</string>
+	<string name="Cancelled">Cancelado</string>
+	<string name="HeaderTitle">Elegir una acción</string>
+	   <string name="finding_service">Finding local services</string>
+    <string name="btn_send">Send</string>
+    <string name="txt_hint">Type message</string>
+    <string name="wifi">Wifi</string>
+</resources>

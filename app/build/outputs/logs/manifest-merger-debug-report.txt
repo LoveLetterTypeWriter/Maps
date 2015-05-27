@@ -1,0 +1,196 @@
+-- Merging decision tree log ---
+manifest
+ADDED from AndroidManifest.xml:2:1
+	xmlns:android
+		ADDED from AndroidManifest.xml:2:11
+	package
+		ADDED from AndroidManifest.xml:3:7
+		INJECTED from AndroidManifest.xml:0:0
+		INJECTED from AndroidManifest.xml:0:0
+	android:versionName
+		ADDED from AndroidManifest.xml:5:7
+	android:versionCode
+		ADDED from AndroidManifest.xml:4:7
+		INJECTED from AndroidManifest.xml:0:0
+		INJECTED from AndroidManifest.xml:0:0
+permission#com.maps.map.permission.MAPS_RECEIVE
+ADDED from AndroidManifest.xml:7:5
+	android:protectionLevel
+		ADDED from AndroidManifest.xml:7:69
+	android:name
+		ADDED from AndroidManifest.xml:7:17
+uses-permission#com.maps.map.MAPS_RECEIVE
+ADDED from AndroidManifest.xml:8:2
+	android:name
+		ADDED from AndroidManifest.xml:8:19
+uses-permission#android.permission.INTERNET
+ADDED from AndroidManifest.xml:9:2
+	android:name
+		ADDED from AndroidManifest.xml:9:19
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from AndroidManifest.xml:10:2
+	android:name
+		ADDED from AndroidManifest.xml:10:19
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from AndroidManifest.xml:11:2
+	android:name
+		ADDED from AndroidManifest.xml:11:19
+uses-permission#com.google.android.providers.gsf.permission.READ_GSERVICES
+ADDED from AndroidManifest.xml:12:2
+	android:name
+		ADDED from AndroidManifest.xml:12:19
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from AndroidManifest.xml:13:2
+	android:name
+		ADDED from AndroidManifest.xml:13:19
+uses-permission#android.permission.ACCESS_FINE_LOCATION
+ADDED from AndroidManifest.xml:15:5
+	android:name
+		ADDED from AndroidManifest.xml:15:22
+uses-permission#android.permission.RECEIVE_SMS
+ADDED from AndroidManifest.xml:16:5
+	android:name
+		ADDED from AndroidManifest.xml:16:22
+uses-permission#android.permission.SEND_SMS
+ADDED from AndroidManifest.xml:17:5
+	android:name
+		ADDED from AndroidManifest.xml:17:22
+uses-permission#android.permission.VIBRATE
+ADDED from AndroidManifest.xml:18:5
+	android:name
+		ADDED from AndroidManifest.xml:18:22
+uses-permission#android.permission.ACCESS_WIFI_STATE
+ADDED from AndroidManifest.xml:20:5
+	android:name
+		ADDED from AndroidManifest.xml:20:22
+uses-permission#android.permission.CHANGE_WIFI_STATE
+ADDED from AndroidManifest.xml:21:2
+	android:name
+		ADDED from AndroidManifest.xml:21:19
+uses-permission#android.permission.CHANGE_NETWORK_STATE
+ADDED from AndroidManifest.xml:22:2
+	android:name
+		ADDED from AndroidManifest.xml:22:19
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from AndroidManifest.xml:24:2
+	android:name
+		ADDED from AndroidManifest.xml:24:19
+uses-feature#0x00020000
+ADDED from AndroidManifest.xml:31:5
+	android:required
+		ADDED from AndroidManifest.xml:33:3
+	android:glEsVersion
+		ADDED from AndroidManifest.xml:32:3
+application
+ADDED from AndroidManifest.xml:35:5
+MERGED from com.android.support:support-v4:21.0.0:16:5
+MERGED from com.google.android.gms:play-services:6.5.87:20:5
+MERGED from com.android.support:support-v4:21.0.0:16:5
+	android:label
+		ADDED from AndroidManifest.xml:38:9
+	android:allowBackup
+		ADDED from AndroidManifest.xml:39:9
+	android:icon
+		ADDED from AndroidManifest.xml:36:9
+	android:name
+		ADDED from AndroidManifest.xml:37:9
+activity#com.maps.map.TabMainActivity
+ADDED from AndroidManifest.xml:41:9
+	android:label
+		ADDED from AndroidManifest.xml:42:19
+	android:name
+		ADDED from AndroidManifest.xml:41:19
+	android:launchMode
+		ADDED from AndroidManifest.xml:43:19
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from AndroidManifest.xml:44:13
+action#android.intent.action.MAIN
+ADDED from AndroidManifest.xml:45:17
+	android:name
+		ADDED from AndroidManifest.xml:45:25
+category#android.intent.category.LAUNCHER
+ADDED from AndroidManifest.xml:46:17
+	android:name
+		ADDED from AndroidManifest.xml:46:27
+activity#com.maps.map.MapRouteActivity
+ADDED from AndroidManifest.xml:51:9
+	android:label
+		ADDED from AndroidManifest.xml:53:13
+	android:parentActivityName
+		ADDED from AndroidManifest.xml:54:13
+	android:name
+		ADDED from AndroidManifest.xml:52:13
+meta-data#android.support.PARENT_ACTIVITY
+ADDED from AndroidManifest.xml:55:13
+	android:name
+		ADDED from AndroidManifest.xml:56:17
+	android:value
+		ADDED from AndroidManifest.xml:57:17
+activity#com.maps.map.EmergencyEventListActivity
+ADDED from AndroidManifest.xml:60:9
+	android:label
+		ADDED from AndroidManifest.xml:62:13
+	android:parentActivityName
+		ADDED from AndroidManifest.xml:63:13
+	android:name
+		ADDED from AndroidManifest.xml:61:13
+activity#com.maps.map.EventDetailsActivity
+ADDED from AndroidManifest.xml:69:9
+	android:label
+		ADDED from AndroidManifest.xml:70:13
+	android:theme
+		ADDED from AndroidManifest.xml:71:13
+	android:parentActivityName
+		ADDED from AndroidManifest.xml:72:13
+	android:name
+		ADDED from AndroidManifest.xml:69:19
+activity#com.maps.map.SettingsActivity
+ADDED from AndroidManifest.xml:78:9
+	android:label
+		ADDED from AndroidManifest.xml:80:13
+	android:parentActivityName
+		ADDED from AndroidManifest.xml:81:13
+	android:name
+		ADDED from AndroidManifest.xml:79:13
+service#com.maps.map.WifiBroadcastService
+ADDED from AndroidManifest.xml:89:9
+	android:label
+		ADDED from AndroidManifest.xml:91:13
+	android:name
+		ADDED from AndroidManifest.xml:90:13
+receiver#com.maps.map.SMSReceiver
+ADDED from AndroidManifest.xml:95:9
+	android:name
+		ADDED from AndroidManifest.xml:95:19
+intent-filter#android.provider.Telephony.SMS_RECEIVED
+ADDED from AndroidManifest.xml:96:13
+	android:priority
+		ADDED from AndroidManifest.xml:96:28
+action#android.provider.Telephony.SMS_RECEIVED
+ADDED from AndroidManifest.xml:97:17
+	android:name
+		ADDED from AndroidManifest.xml:97:25
+meta-data#com.google.android.gms.version
+ADDED from AndroidManifest.xml:102:8
+MERGED from com.google.android.gms:play-services:6.5.87:21:9
+	android:name
+		ADDED from AndroidManifest.xml:103:6
+	android:value
+		ADDED from AndroidManifest.xml:104:6
+meta-data#com.google.android.maps.v2.API_KEY
+ADDED from AndroidManifest.xml:106:8
+	android:name
+		ADDED from AndroidManifest.xml:107:6
+	android:value
+		ADDED from AndroidManifest.xml:108:6
+uses-sdk
+INJECTED from AndroidManifest.xml:0:0 reason: use-sdk injection requested
+MERGED from com.android.support:support-v4:21.0.0:15:5
+MERGED from com.google.android.gms:play-services:6.5.87:18:5
+MERGED from com.android.support:support-v4:21.0.0:15:5
+	android:targetSdkVersion
+		INJECTED from AndroidManifest.xml:0:0
+		INJECTED from AndroidManifest.xml:0:0
+	android:minSdkVersion
+		INJECTED from AndroidManifest.xml:0:0
+		INJECTED from AndroidManifest.xml:0:0

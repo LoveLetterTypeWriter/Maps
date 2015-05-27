@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <CheckBoxPreference
+                        android:title="@string/satellite_view_pref_title"
+                        android:defaultValue="true"
+                        android:summary="@string/satellite_view_pref_summary"
+                        android:key="map_mode" />
+    <CheckBoxPreference
+                        android:title="@string/traffic_view_pref_title"
+                        android:defaultValue="true"
+                        android:summary="@string/traffic_view_pref_summary"
+                        android:key="traffic_mode" />
+</PreferenceScreen><!-- From: file:/C:/Users/1089C/AndroidstudioProjects/CSHProject/app/src/main/res/layout/preferences.xml -->

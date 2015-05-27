@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Emergency Map</string>
+    <string name="id">ID</string>
+    <string name="sender">Sender</string>
+    <string name="received">Received</string>
+    <string name="status">Status</string>
+    <string name="category">Category</string>
+    <string name="event_level">Event Level</string>
+    <string name="response_type">Response Type</string>
+    <string name="urgency">Urgency</string>
+    <string name="severity">Severity</string>
+    <string name="certainty">Certainty</string>
+    <string name="effective">Effective</string>
+    <string name="expires">Expires</string>
+    <string name="info">Extra Information</string>
+    <string name="address">Address</string>
+    <string name="map">Map</string>
+    <string name="emergencies">Emergencies</string>
+    <string name="preferences">Preferences</string>
+    <string name="current_events">Current Events</string>
+    <string name="future_events">Future Events</string>
+    <string name="past_events">Past Events</string>
+    <string name="advisory">Advisory</string>
+    <string name="watch">Watch</string>
+    <string name="warning">Warning</string>
+    <string name="satellite_view_pref_title">Satellite View</string>
+    <string name="satellite_view_pref_summary">Click to use the satellite view on the map</string>
+    <string name="traffic_view_pref_title">Traffic View</string>
+    <string name="traffic_view_pref_summary">Click to use the traffic view on the map</string>
+    <string name="DisplayonMap">Display on Map</string>
+	<string name="Delete">Delete</string>
+	<string name="Cancel">Cancel</string>
+	<string name="Deleted">Event has been deleted</string>
+	<string name="Cancelled">Cancelled</string>
+    <string name="updated">Updated</string>
+    <string name="n">New</string>
+    <string name="emergency">Emergency</string>
+    <string name="HeaderTitle">Choose an action</string>
+    <string name="finding_service">Finding local services</string>
+    <string name="btn_send">Send</string>
+    <string name="txt_hint">Type message</string>
+    <string name="wifi">Wifi</string>
+
+    <string name="v_impaired_setting">Visually Impaired Mode</string>
+    <string name="a_impaired_setting">Auditory Impaired Mode</string>
+    <string name="v_impaired_summ">When turned on, all messages displayed by this program will be read aloud.</string>
+    <string name="a_impaired_summ">When turned on, the screen will flash and the phone will rumble when a message is displayed.</string>
+</resources>

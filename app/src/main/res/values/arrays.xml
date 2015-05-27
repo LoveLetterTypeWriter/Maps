@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    	<string-array name="menu">
+	    <item name="DisplayonMap">@string/DisplayonMap</item>
+	    <item name="Delete">@string/Delete</item>
+	    <item name="Cancel">@string/Cancel</item>
+	</string-array>
+	
+</resources>

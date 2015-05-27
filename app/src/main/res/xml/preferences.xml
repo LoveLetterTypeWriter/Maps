@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <CheckBoxPreference
+        android:title="@string/satellite_view_pref_title"
+        android:defaultValue="true"
+        android:summary="@string/satellite_view_pref_summary"
+        android:key="map_mode" />
+    <CheckBoxPreference
+        android:title="@string/traffic_view_pref_title"
+        android:defaultValue="true"
+        android:summary="@string/traffic_view_pref_summary"
+        android:key="traffic_mode" />
+    <CheckBoxPreference
+        android:key="v_impaired_mode"
+        android:title="@string/v_impaired_setting"
+        android:summary="@string/v_impaired_summ"
+        android:defaultValue="false" />
+    <CheckBoxPreference
+        android:key="a_impaired_mode"
+        android:title="@string/a_impaired_setting"
+        android:summary="@string/a_impaired_summ"
+        android:defaultValue="false" />
+</PreferenceScreen>
