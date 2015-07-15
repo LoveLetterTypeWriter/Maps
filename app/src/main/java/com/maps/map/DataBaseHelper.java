@@ -55,7 +55,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 	private String curr_db_name = "emergency_maps";
 
 	//the current database version should be updated every time the schema is updated
-	private static int DATABASE_VERSION = 10;
+	private static int DATABASE_VERSION = 11;
 
 	private SQLiteDatabase myDataBase;
 
@@ -296,9 +296,15 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 		String area_type = "Could not find area type";
 		@SuppressWarnings("unused")
 		String area_info = "Could not find area info";
+
 		String status_s = "";
 		String certainty_s = "";
 		String urgency_s = "";
+
+		String status_c = "#FFFFFF";
+		String certainty_c = "#FFFFFF";
+		String urgency_c = "#FFFFFF";
+		String severity_c = "#FFFFFF";
 
 		try{
 
@@ -319,10 +325,11 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 			int id = Integer.parseInt(s.next(), 16);
 			id = (int)(id ^ (origin & 0xFFFFF));
 
-			c = myDataBase.query("status", new String[] {"descriptor", "speech_text"}, "_id=" + s.nextInt(), null, null, null, null);
+			c = myDataBase.query("status", new String[] {"descriptor", "speech_text", "color"}, "_id=" + s.nextInt(), null, null, null, null);
 			if(c.moveToFirst()) {
 				status = c.getString(c.getColumnIndex("descriptor"));
 				status_s = c.getString(c.getColumnIndex("speech_text"));
+				status_c = c.getString(c.getColumnIndex("color"));
 			}
 			c.close();
 
@@ -377,23 +384,26 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 			}
 			c.close();
 
-			c = myDataBase.query("urgency", new String[] {"descriptor", "speech_text"}, "_id='" + s.nextInt() + "'", null, null, null, null);
+			c = myDataBase.query("urgency", new String[] {"descriptor", "speech_text", "color"}, "_id='" + s.nextInt() + "'", null, null, null, null);
 			if(c.moveToFirst()) {
 				urgency = c.getString(c.getColumnIndex("descriptor"));
 				urgency_s = c.getString(c.getColumnIndex("speech_text"));
+				urgency_c = c.getString(c.getColumnIndex("color"));
 			}
 			c.close();
 
-			c = myDataBase.query("severity", new String[] {"descriptor"}, "_id='" + s.nextInt() + "'", null, null, null, null);
+			c = myDataBase.query("severity", new String[] {"descriptor", "color"}, "_id='" + s.nextInt() + "'", null, null, null, null);
 			if(c.moveToFirst()) {
 				severity = c.getString(c.getColumnIndex("descriptor"));
+				severity_c = c.getString(c.getColumnIndex("color"));
 			}
 			c.close();
 
-			c = myDataBase.query("certainty", new String[] {"descriptor", "speech_text"}, "_id='" + s.nextInt() + "'", null, null, null, null);
+			c = myDataBase.query("certainty", new String[] {"descriptor", "speech_text", "color"}, "_id='" + s.nextInt() + "'", null, null, null, null);
 			if(c.moveToFirst()) {
 				certainty = c.getString(c.getColumnIndex("descriptor"));
 				certainty_s = c.getString(c.getColumnIndex("speech_text"));
+				certainty_c = c.getString(c.getColumnIndex("color"));
 			}
 			c.close();
 
@@ -472,7 +482,8 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 
 			EmergencyEvent e = new EmergencyEvent(id, sender, received, status, msg_type,
 					category, event_level, response_type, urgency, severity,
-					certainty, effective_date, expires_date, ai, myContext, null, speaker_string);
+					certainty, effective_date, expires_date, ai, myContext, null, speaker_string,
+					certainty_c, severity_c, status_c, urgency_c);
 
 			if(msg_type.equals("alert"))
 				insertIntoDb(e);
@@ -529,6 +540,10 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 		cv.put("address", e.getAddress());
 		cv.put("display", e.getDisplay());
 		cv.put("speaker_string", e.getNotificationSpeech());
+		cv.put("certainty_color", e.getCertaintyColor());
+		cv.put("severity_color", e.getSeverityColor());
+		cv.put("status_color", e.getStatusColor());
+		cv.put("urgency_color", e.getUrgencyColor());
 
 		return cv;
 	}
@@ -625,7 +640,11 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 					ai,
 					myContext,
 					displayBool,
-					c.getString(c.getColumnIndex("speaker_string")));
+					c.getString(c.getColumnIndex("speaker_string")),
+					c.getString(c.getColumnIndex("certainty_color")),
+					c.getString(c.getColumnIndex("severity_color")),
+					c.getString(c.getColumnIndex("status_color")),
+					c.getString(c.getColumnIndex("urgency_color")));
 			ee.addExtraInfo(c.getString(c.getColumnIndex("info")));
 			e.add(ee);
 

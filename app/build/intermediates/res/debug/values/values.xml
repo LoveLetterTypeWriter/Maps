@@ -2,6 +2,14 @@
 <resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
     <!-- From: file:/C:/Users/1089C/AndroidstudioProjects/CSHProject/app/src/main/res/values/arrays.xml -->
     <eat-comment/>
+    <string-array name="magnificationsData">
+		<item>0</item>
+		<item>1</item>
+	</string-array>
+    <string-array name="magnificationsText">
+		<item>@string/magnify_lv1</item>
+		<item>@string/magnify_lv2</item>
+	</string-array>
     <string-array name="menu">
 	    <item name="DisplayonMap">@string/DisplayonMap</item>
 	    <item name="Delete">@string/Delete</item>
@@ -53,19 +61,23 @@
     <string name="Deleted">Event has been deleted</string>
     <string name="DisplayonMap">Display on Map</string>
     <string name="HeaderTitle">Choose an action</string>
-    <string name="a_impaired_setting">Auditory Impaired Mode</string>
-    <string name="a_impaired_summ">When turned on, the screen will flash and the phone will rumble when a message is displayed.</string>
     <!-- From: file:/C:/Users/1089C/AndroidstudioProjects/CSHProject/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_strings.xml -->
     <eat-comment/>
     <string name="accept">Accept</string>
     <!-- From: file:/C:/Users/1089C/AndroidstudioProjects/CSHProject/app/src/main/res/values/strings.xml -->
     <eat-comment/>
+    <string name="accessibility_title">Accessibility Options</string>
     <string name="address">Address</string>
     <string name="advisory">Advisory</string>
     <string name="app_name">Emergency Map</string>
     <string name="btn_send">Send</string>
     <string name="category">Category</string>
+    <string name="cctext_setting">Color-Coded Text Mode</string>
+    <string name="cctext_summ">When turned on, fields displayed in the event details will be given different colors dependent on their category and severity.</string>
     <string name="certainty">Certainty</string>
+    <string name="clear_event_data">Clear Event Data</string>
+    <string name="clear_event_data_diag">Are you sure you want to wipe all event data on this phone?</string>
+    <string name="clear_event_data_summ">Deletes all event listings stored on this phone. This action cannot be undone.</string>
     <!-- From: file:/C:/Users/1089C/AndroidstudioProjects/CSHProject/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/common_strings.xml -->
     <eat-comment/>
     <string name="common_android_wear_notification_needs_update_text">An application requires an update to the Android Wear app.</string>
@@ -111,15 +123,24 @@
     <string name="effective">Effective</string>
     <string name="emergencies">Emergencies</string>
     <string name="emergency">Emergency</string>
+    <string name="enable_receive_service">Enable Receiving Service</string>
+    <string name="enable_receive_service_summ">Allows the application to receiving incoming CAP messages. It is highly recommended to leave this option on</string>
     <string name="event_level">Event Level</string>
     <string name="expires">Expires</string>
     <string name="finding_service">Finding local services</string>
     <string name="future_events">Future Events</string>
     <string name="id">ID</string>
     <string name="info">Extra Information</string>
+    <string name="magnified_text_setting">Enable Magnified Text</string>
+    <string name="magnified_text_summ">When turned on, the size of the text displayed in the event fields will be increased.</string>
+    <string name="magnified_text_title">Magnified Text Mode</string>
+    <string name="magnify_lv1">Medium</string>
+    <string name="magnify_lv2">Large</string>
     <string name="map">Map</string>
     <string name="n">New</string>
     <string name="past_events">Past Events</string>
+    <string name="pictoral_setting">Pictoral Mode</string>
+    <string name="pictoral_summ">When turned on, event information will be displayed as symbolic pictures rather than text</string>
     <string name="preferences">Preferences</string>
     <string name="received">Received</string>
     <string name="response_type">Response Type</string>
@@ -139,8 +160,8 @@
     <string name="txt_hint">Type message</string>
     <string name="updated">Updated</string>
     <string name="urgency">Urgency</string>
-    <string name="v_impaired_setting">Visually Impaired Mode</string>
-    <string name="v_impaired_summ">When turned on, all messages displayed by this program will be read aloud.</string>
+    <string name="voiceover_setting">Voiceover Mode</string>
+    <string name="voiceover_summ">When turned on, all messages displayed by this program will be read aloud.</string>
     <!-- From: file:/C:/Users/1089C/AndroidstudioProjects/CSHProject/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/wallet_strings.xml -->
     <eat-comment/>
     <string name="wallet_buy_button_place_holder" translation_description="Text on a button that allows a user to make a payment with Google Wallet [CHAR LIMIT=30]">Buy with Google</string>

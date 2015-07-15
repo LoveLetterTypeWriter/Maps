@@ -8,8 +8,8 @@ import android.os.Bundle;
  */
 public class SettingsActivity extends Activity {
     //Settings constants go here
-    public static final String KEY_V_IMP_MODE = "v_impaired_mode";
-    public static final String KEY_A_IMP_MODE = "a_impaired_mode";
+    public static final String VOICEOVER_SETTING = "voiceover_setting";
+    public static final String COLORCODEDTEXT_SETTING = "cctext_setting";
     public static final String MAP_MODE = "map_mode";
     public static final String TRAFFIC_MODE = "traffic_mode";
 

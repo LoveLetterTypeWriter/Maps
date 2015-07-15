@@ -42,8 +42,23 @@
     <string name="txt_hint">Type message</string>
     <string name="wifi">Wifi</string>
 
-    <string name="v_impaired_setting">Visually Impaired Mode</string>
-    <string name="a_impaired_setting">Auditory Impaired Mode</string>
-    <string name="v_impaired_summ">When turned on, all messages displayed by this program will be read aloud.</string>
-    <string name="a_impaired_summ">When turned on, the screen will flash and the phone will rumble when a message is displayed.</string>
+    <string name="accessibility_title">Accessibility Options</string>
+    <string name="voiceover_setting">Voiceover Mode</string>
+    <string name="voiceover_summ">When turned on, all messages displayed by this program will be read aloud.</string>
+    <string name="cctext_setting">Color-Coded Text Mode</string>
+    <string name="cctext_summ">When turned on, fields displayed in the event details will be given different colors dependent on their category and severity.</string>
+    <string name="magnified_text_title">Magnified Text Mode</string>
+    <string name="magnified_text_setting">Enable Magnified Text</string>
+    <string name="magnified_text_summ">When turned on, the size of the text displayed in the event fields will be increased.</string>
+    <string name="magnify_lv1">Medium</string>
+    <string name="magnify_lv2">Large</string>
+    <string name="pictoral_setting">Pictoral Mode</string>
+    <string name="pictoral_summ">When turned on, event information will be displayed as symbolic pictures rather than text</string>
+
+    <string name="clear_event_data">Clear Event Data</string>
+    <string name="clear_event_data_summ">Deletes all event listings stored on this phone. This action cannot be undone.</string>
+    <string name="clear_event_data_diag">Are you sure you want to wipe all event data on this phone?</string>
+
+    <string name="enable_receive_service">Enable Receiving Service</string>
+    <string name="enable_receive_service_summ">Allows the application to receiving incoming CAP messages. It is highly recommended to leave this option on</string>
 </resources>

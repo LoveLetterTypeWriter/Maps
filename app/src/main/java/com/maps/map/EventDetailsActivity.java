@@ -37,7 +37,8 @@ public class EventDetailsActivity extends Activity {
         super.onCreate(savedInstanceState);
         g = (GlobalActivity)getApplication();
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean v_imp_mode = sharedPrefs.getBoolean(SettingsActivity.KEY_V_IMP_MODE, false);
+        boolean voiceover_setting = sharedPrefs.getBoolean(SettingsActivity.VOICEOVER_SETTING, false);
+        boolean cctext_setting = sharedPrefs.getBoolean(SettingsActivity.COLORCODEDTEXT_SETTING, false);
             
         setContentView(R.layout.popup_layout);
             
@@ -50,10 +51,10 @@ public class EventDetailsActivity extends Activity {
         TextView tv = (TextView) findViewById(R.id.popup_content);
     	    
         //HTML formatting looks much better than a normal String
-        tv.setText(Html.fromHtml(e.toHtmlString()));
+        tv.setText(Html.fromHtml(e.toHtmlString(cctext_setting)));
 
         //NEW: Speaker stuff
-        if (v_imp_mode && g.speaker != null)
+        if (voiceover_setting && g.speaker != null)
         {
             g.speaker.speak(e.getSelectionSpeech());
         }

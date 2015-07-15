@@ -10,14 +10,46 @@
         android:defaultValue="true"
         android:summary="@string/traffic_view_pref_summary"
         android:key="traffic_mode" />
+    <PreferenceCategory
+        android:title="@string/accessibility_title"
+        android:key="accessibility_settings">
+        <CheckBoxPreference
+            android:key="voiceover_setting"
+            android:title="@string/voiceover_setting"
+            android:summary="@string/voiceover_summ"
+            android:defaultValue="false" />
+        <CheckBoxPreference
+            android:key="cctext_setting"
+            android:title="@string/cctext_setting"
+            android:summary="@string/cctext_summ"
+            android:defaultValue="false" />
+        <PreferenceScreen
+            android:key="magnified_text_category"
+            android:title="@string/magnified_text_title"
+            android:persistent="false">
+            <CheckBoxPreference
+                android:key="magnified_text_setting"
+                android:title="@string/magnified_text_setting"
+                android:summary="@string/magnified_text_summ"
+                android:defaultValue="false" />
+            <ListPreference
+                android:key="magnification_level"
+                android:title="Magnification Level"
+                android:summary="%s"
+                android:defaultValue="0"
+                android:dependency="magnified_text_setting"
+                android:entries="@array/magnificationsText"
+                android:entryValues="@array/magnificationsData" />
+        </PreferenceScreen>
+        <CheckBoxPreference
+            android:key="pictoral_setting"
+            android:title="@string/pictoral_setting"
+            android:summary="@string/pictoral_summ"
+            android:defaultValue="false" />
+    </PreferenceCategory>
     <CheckBoxPreference
-        android:key="v_impaired_mode"
-        android:title="@string/v_impaired_setting"
-        android:summary="@string/v_impaired_summ"
-        android:defaultValue="false" />
-    <CheckBoxPreference
-        android:key="a_impaired_mode"
-        android:title="@string/a_impaired_setting"
-        android:summary="@string/a_impaired_summ"
-        android:defaultValue="false" />
+        android:title="@string/enable_receive_service"
+        android:defaultValue="true"
+        android:summary="@string/enable_receive_service_summ"
+        android:key="receive_service_enabled" />
 </PreferenceScreen><!-- From: file:/C:/Users/1089C/AndroidstudioProjects/CSHProject/app/src/main/res/xml/preferences.xml -->

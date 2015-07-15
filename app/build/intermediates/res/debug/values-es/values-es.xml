@@ -8,12 +8,18 @@
     <string name="Deleted">Evento ha sido eliminado</string>
     <string name="DisplayonMap">Mostrar en el Mapa</string>
     <string name="HeaderTitle">Elegir una acción</string>
+    <string name="accessibility_title">Opciones De Accesibilidad</string>
     <string name="address">Dirección</string>
     <string name="advisory">Asesor</string>
     <string name="app_name">Mapa de Emergencia</string>
     <string name="btn_send">Send</string>
     <string name="category">Categoría</string>
+    <string name="cctext_setting">Texto Codificado Por Colores</string>
+    <string name="cctext_summ">When turned on, fields displayed in the event details will be given different colors dependent on their category and severity.</string>
     <string name="certainty">Certeza</string>
+    <string name="clear_event_data">Clear Event Data</string>
+    <string name="clear_event_data_diag">Are you sure you want to wipe all event data on this phone?</string>
+    <string name="clear_event_data_summ">Deletes all event listings stored on this phone. This action cannot be undone.</string>
     <!-- From: file:/C:/Users/1089C/AndroidstudioProjects/CSHProject/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-es/common_strings.xml -->
     <eat-comment/>
     <string msgid="473679118463211576" name="common_android_wear_notification_needs_update_text">"Una aplicación necesita que Android Wear se actualice."</string>
@@ -50,15 +56,24 @@
     <string name="effective">Eficaz</string>
     <string name="emergencies">Emergencias</string>
     <string name="emergency">Emergencia</string>
+    <string name="enable_receive_service">Enable Receiving Service</string>
+    <string name="enable_receive_service_summ">Allows the application to receiving incoming CAP messages. It is highly recommended to leave this option on</string>
     <string name="event_level">Evento a Nivel</string>
     <string name="expires">Vence</string>
     <string name="finding_service">Finding local services</string>
     <string name="future_events">Eventos Futuros</string>
     <string name="id">Identificación</string>
     <string name="info">Información Adicional</string>
+    <string name="magnified_text_setting">Enable Magnified Text</string>
+    <string name="magnified_text_summ">When turned on, the size of the text displayed in the event fields will be increased.</string>
+    <string name="magnified_text_title">Magnified Text Mode</string>
+    <string name="magnify_lv1">Medium</string>
+    <string name="magnify_lv2">Large</string>
     <string name="map">Mapa</string>
     <string name="n">Nuevo</string>
     <string name="past_events">Eventos Pasados</string>
+    <string name="pictoral_setting">Pictoral Mode</string>
+    <string name="pictoral_summ">When turned on, event information will be displayed as symbolic pictures rather than text</string>
     <string name="preferences">Preferencias</string>
     <string name="received">Recibido</string>
     <string name="response_type">Respuesta de Tipo</string>
@@ -72,6 +87,8 @@
     <string name="txt_hint">Type message</string>
     <string name="updated">Actualizado</string>
     <string name="urgency">Urgencia</string>
+    <string name="voiceover_setting">Modo De Narración</string>
+    <string name="voiceover_summ">When turned on, all messages displayed by this program will be read aloud.</string>
     <!-- From: file:/C:/Users/1089C/AndroidstudioProjects/CSHProject/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values-es/wallet_strings.xml -->
     <eat-comment/>
     <string name="wallet_buy_button_place_holder">Comprar con Google</string>

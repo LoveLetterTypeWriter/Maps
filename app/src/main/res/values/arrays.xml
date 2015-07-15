@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    	<string-array name="menu">
+	<string-array name="menu">
 	    <item name="DisplayonMap">@string/DisplayonMap</item>
 	    <item name="Delete">@string/Delete</item>
 	    <item name="Cancel">@string/Cancel</item>
 	</string-array>
-	
+
+	<string-array name="magnificationsText">
+		<item>@string/magnify_lv1</item>
+		<item>@string/magnify_lv2</item>
+	</string-array>
+
+	<string-array name="magnificationsData">
+		<item>0</item>
+		<item>1</item>
+	</string-array>
+
 </resources>

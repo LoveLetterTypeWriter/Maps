@@ -198,7 +198,6 @@ public class MapRouteActivity extends FragmentActivity implements
     	
 
     	//The handler updates the map based on messages that are sent
-    	
         Handler mHandler = new Handler(Looper.getMainLooper()) {
         	//this updates the event and decides what to zoom in on
                 public void handleMessage(android.os.Message msg) {
@@ -305,6 +304,7 @@ public class MapRouteActivity extends FragmentActivity implements
         }
 	
     //Listens for event messages
+	//TODO: Move into service
 	private BroadcastReceiver myReceiver = new BroadcastReceiver() { 
 		
 	    @Override
@@ -374,6 +374,7 @@ public class MapRouteActivity extends FragmentActivity implements
 	};
 	
 	//Notifies the user with a specific sound and vibration according to specifications, as well as a text notification
+	//TODO: Move to service
 	public void makeNotification(EmergencyEvent e) {
 		
 		String ns = Context.NOTIFICATION_SERVICE;
@@ -398,14 +399,29 @@ public class MapRouteActivity extends FragmentActivity implements
 		//show the correct notification icon depending on the event level
 		
 		if(e.getEventLevel().equals("ADV"))
-			n = new Notification(R.drawable.green_drop, 
-					type + this.getString(R.string.emergency), System.currentTimeMillis());
+			//n = new Notification(R.drawable.green_drop,
+			//		type + this.getString(R.string.emergency), System.currentTimeMillis());
+			n = new Notification.Builder(this)
+					.setContentText(this.getString(R.string.emergency))
+					.setSmallIcon(R.drawable.green_drop)
+					.setWhen(System.currentTimeMillis())
+					.build();
 		else if(e.getEventLevel().equals("WCH"))
-			n = new Notification(R.drawable.yellow_drop, 
-					type + this.getString(R.string.emergency), System.currentTimeMillis());
+			//n = new Notification(R.drawable.yellow_drop,
+			//		type + this.getString(R.string.emergency), System.currentTimeMillis());
+			n = new Notification.Builder(this)
+					.setContentText(this.getString(R.string.emergency))
+					.setSmallIcon(R.drawable.yellow_drop)
+					.setWhen(System.currentTimeMillis())
+					.build();
 		else
-			n = new Notification(R.drawable.red_drop, 
-				type + this.getString(R.string.emergency), System.currentTimeMillis());
+			//n = new Notification(R.drawable.red_drop,
+			//	type + this.getString(R.string.emergency), System.currentTimeMillis());
+			n = new Notification.Builder(this)
+					.setContentText(this.getString(R.string.emergency))
+					.setSmallIcon(R.drawable.red_drop)
+					.setWhen(System.currentTimeMillis())
+					.build();
 		
 		output += type + this.getString(R.string.emergency) + ": " + latest_event.getCategory() 
 				+ " " + latest_event.getAddress();
