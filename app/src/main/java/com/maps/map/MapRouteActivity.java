@@ -24,8 +24,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.ResultReceiver;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -72,11 +74,12 @@ public class MapRouteActivity extends FragmentActivity implements
         MapView mapView;
         GoogleMap map; 
         Geocoder geocoder;
-        EmergencyEvent latest_event;
         LatLng curr_location;
         SharedPreferences sharedPrefs;
 		GoogleApiClient mLocationClient;
         EventManager em;
+		Intent serviceIntent;
+		Timer myTimer; //TODO this is just a test timer, remove
         
 
         @Override
@@ -133,12 +136,17 @@ public class MapRouteActivity extends FragmentActivity implements
                 
                 geocoder = new Geocoder(this, Locale.US);
 	         	
-	         	em = EventManager.getInstance(this);
+	         	em = EventManager.getInstance(this); //TODO have the eventmanager be created from the global variable
 	         	
 	         	//see handler code further down for an explanation
-	         	mHandler.sendEmptyMessage(0);
+				mReceiver.send(0,null);
                 map.setTrafficEnabled(true);
                 map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+
+				//resultreceiver initialization
+				serviceIntent = new Intent(this, MessageService.class);
+				serviceIntent.putExtra("receiver",mReceiver);
+				startService(serviceIntent);
                 
         	 	//every 10 minutes refresh the map and list
                 
@@ -162,7 +170,7 @@ public class MapRouteActivity extends FragmentActivity implements
                  * 
                  */
                 
-        	    Timer myTimer = new Timer();
+        	    myTimer = new Timer();
         	    myTimer.schedule(new TimerTask() {
         	        @Override
         	        public void run() {
@@ -176,101 +184,50 @@ public class MapRouteActivity extends FragmentActivity implements
         	    }, 0, 20000);
         }        
         
-        /* Whenever we start this program, we want to make sure that we initialize the map properly so we
-         * send this Intent.
-         */
+
 
         @Override
     	public void onStart() {
     		super.onStart();
-    		registerReceiver(myReceiver, new IntentFilter("EMERGENCY.RECEIVED"));
+			//TODO timer testing, remove later
+			myTimer = new Timer();
+			myTimer.schedule(new TimerTask() {
+				@Override
+				public void run() {
+					Intent i = new Intent("EMERGENCY.RECEIVED");
+					String str = "15555215557 ";
+					str += System.currentTimeMillis() + " ";
+					str += "15 1 1 3 BZW 1 1 1 1 10-25-2014 23:23 10-28-2014 23:44 3 33.6 -117.8 5 3";
+					i.putExtra("message", str);
+					sendBroadcast(i);
+				}
+			}, 0, 20000);
     		mLocationClient.connect();
-    		Intent i = new Intent ("EMERGENCY.RECEIVED");
-            sendBroadcast(i);
     	}
     	
     	@Override 
-    	public void onStop() { 
-    		mLocationClient.disconnect();
-    	  unregisterReceiver(myReceiver);
-    	  super.onStop();
+    	public void onStop() {
+			mLocationClient.disconnect();
+			//TODO timer testing, remove later
+			if (myTimer != null)
+			{
+				myTimer.cancel();
+				myTimer = null;
+			}
+    	  	super.onStop();
     	}
-    	
 
-    	//The handler updates the map based on messages that are sent
-        Handler mHandler = new Handler(Looper.getMainLooper()) {
-        	//this updates the event and decides what to zoom in on
-                public void handleMessage(android.os.Message msg) {
-                	
-                	em.refresh();
-                	
-                	//this Intent will tell the event list to also refresh
-                	Intent j = new Intent ("REFRESH.RECEIVED");
-                    sendBroadcast(j);
-                	
-                	map.clear();
-                	
-                	switch (msg.what){
-                		//if the message is type 0 just zoom in on the person's current location
-                		case 0:
-                			
-			                if(curr_location != null) {
-			                	map.moveCamera(CameraUpdateFactory.newLatLngZoom(curr_location, 12));
-			                }
-			                break;
-			                
-			            //if the message is type 1 just zoom in on the most recently added event    
-                		case 1:
-                			
-			                LatLng point = latest_event.getPoint();
-			                map.moveCamera(CameraUpdateFactory.newLatLngZoom(point, 12));
-			                break;
-                	}
-                	
-                	//add all the markers and circles for the items
-                	ArrayList<EmergencyEvent> e = em.getAll();
-                	
-                	//only show events that are supposed to be displayed (either because they are current or the user selected to show them)
-                	for(int i = 0; i < e.size(); i++){
-                		EmergencyEvent curr = e.get(i);
-                		if(!curr.isDisplayed()) {
-                			continue;
-                		}
-                		LatLng p = curr.getPoint();
-                	    
-                		CircleOptions oc = (new MapCircleOverlay(p, curr.getRadius(), curr.getEventLevel(), map.getCameraPosition().zoom)).getCircleOverlay();
-                		
-                		if(curr.getEventLevel().equals("ADV")) {
-                			map.addMarker(new MarkerOptions()
-	                          .position(p)
-	                          .title(curr.getCategory())
-	                          .snippet(""+curr.getId())
-	                          .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
-                		} else if (curr.getEventLevel().equals("WCH")) {
-                			map.addMarker(new MarkerOptions()
-	                          .position(p)
-	                          .title(curr.getCategory())
-	                          .snippet(""+curr.getId())
-	                          .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
-                		} else {
-                			map.addMarker(new MarkerOptions()
-	                          .position(p)
-	                          .title(curr.getCategory())
-	                          .snippet(""+curr.getId())
-	                          .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-                		}
-                		map.addCircle(oc);
-                	}
-                	
-                	if(curr_location != null) {
-	                	map.addMarker(new MarkerOptions()
-	                		.position(curr_location)
-	                		.title("You")
-	                		.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-	                }
-	                
-                };
-        };
+		@Override
+		public void onDestroy() {
+			stopService(serviceIntent);
+			//TODO timer testing, remove later
+			if (myTimer != null)
+			{
+				myTimer.cancel();
+				myTimer = null;
+			}
+			super.onDestroy();
+		}
         
         //If the user clicks on a marker, then we should bring up the event details.
         
@@ -300,147 +257,91 @@ public class MapRouteActivity extends FragmentActivity implements
         @Override
         public void onLocationChanged(Location location) {
             curr_location = new LatLng(location.getLatitude(), location.getLongitude());
-            mHandler.sendEmptyMessage(0);
-        }
-	
-    //Listens for event messages
-	//TODO: Move into service
-	private BroadcastReceiver myReceiver = new BroadcastReceiver() { 
-		
-	    @Override
-	    public void onReceive(Context context, Intent intent) {
-	    	
-	    	Bundle b = intent.getExtras();
-	    	
-	    	if(b!=null) {
-				if(b.getString("message")!=null) {
-					latest_event = em.queryEvent(b.getString("message"));
-					
-					/*
-					 * em.queryEvent() should always return an Emergency Event
-					 * unless there was something wrong with the message and it
-					 * did not parse correctly. Even in the case of a deletion,
-					 * it should still return an event.
-					 */
-					
-		    		if(latest_event!=null){
-		    			String message = b.getString("message");
-		    			String[] messagesplit = message.split(" ");
-		    			//get the last word in the message which should be the TTL
-		    			int ttl = Integer.valueOf(messagesplit[messagesplit.length-1]);
-		    			
-		    			/* If the TTL is greater than 0, then we should try to send this
-		    			 * message onto any other devices in range.
-		    			 */
-		    			
-		    			if(ttl>0) {
-		    				Intent i = new Intent ("EMERGENCY.SEND");
-		    				i.putExtra("message", b.getString("message"));
-		    				
-		    				/* this is messy, but it replaces the TTL in the message with
-		    				 * one that is one less than the original
-		    				 */
-		    				
-		    				ttl = ttl-1;
-		    				message = message.replaceAll("\\d$", Integer.toString(ttl));
-		    				i.putExtra("message", message);
-		    				sendBroadcast(i);
-		    			}
-		    			
-		    			//notify the user
-						makeNotification(latest_event);
-						
-						//if an event just got canceled, just refresh the map
-						if(!latest_event.getType().equals("cancel")) {
-							mHandler.sendEmptyMessage(2);
-						} else { //otherwise, zoom in on the new/updated event on the map
-							mHandler.sendEmptyMessage(1);
-						}
-					}
-		    		
-				} else if(b.getString("id")!=null) { //this happens when you click on a notification--you get sent to that particular event
-					latest_event = em.getSpecificEvent(b.getString("id"));
-					if(latest_event!=null) {
-						mHandler.sendEmptyMessage(1);
-					} else { //the event has been deleted either by the user or by a "cancel" message, so there is no event to show anymore
-						Toast.makeText(context, context.getString(R.string.Deleted), Toast.LENGTH_LONG).show();
-					}
-				} 
-				
-	    	} else { //if we were sent an Intent with no extras, we can assume that we just need to refresh the map
-	    		mHandler.sendEmptyMessage(2);
-	    	}
-	    }
-	};
-	
-	//Notifies the user with a specific sound and vibration according to specifications, as well as a text notification
-	//TODO: Move to service
-	public void makeNotification(EmergencyEvent e) {
-		
-		String ns = Context.NOTIFICATION_SERVICE;
-		NotificationManager mNotificationManager = (NotificationManager) getSystemService(ns);
-		Intent notificationIntent = new Intent(this, TabMainActivity.class);
-		notificationIntent.putExtra("id", "" + e.getId());
-		PendingIntent contentIntent = PendingIntent.getActivity(this, 
-				(int)System.currentTimeMillis(), notificationIntent, 0);
-		String output = "";
-		String type = "";
-		
-		if(latest_event.getType().equals("update") || latest_event.getType().equals("addition")) {
-			 type += this.getString(R.string.updated) + " ";
-		} else if(latest_event.getType().equals("cancel")){
-			type += this.getString(R.string.Cancelled) + " ";
-		}else{
-			type += this.getString(R.string.n) + " ";
+			mReceiver.send(0,null);
 		}
-		
-		Notification n;
-		
-		//show the correct notification icon depending on the event level
-		
-		if(e.getEventLevel().equals("ADV"))
-			//n = new Notification(R.drawable.green_drop,
-			//		type + this.getString(R.string.emergency), System.currentTimeMillis());
-			n = new Notification.Builder(this)
-					.setContentText(this.getString(R.string.emergency))
-					.setSmallIcon(R.drawable.green_drop)
-					.setWhen(System.currentTimeMillis())
-					.build();
-		else if(e.getEventLevel().equals("WCH"))
-			//n = new Notification(R.drawable.yellow_drop,
-			//		type + this.getString(R.string.emergency), System.currentTimeMillis());
-			n = new Notification.Builder(this)
-					.setContentText(this.getString(R.string.emergency))
-					.setSmallIcon(R.drawable.yellow_drop)
-					.setWhen(System.currentTimeMillis())
-					.build();
-		else
-			//n = new Notification(R.drawable.red_drop,
-			//	type + this.getString(R.string.emergency), System.currentTimeMillis());
-			n = new Notification.Builder(this)
-					.setContentText(this.getString(R.string.emergency))
-					.setSmallIcon(R.drawable.red_drop)
-					.setWhen(System.currentTimeMillis())
-					.build();
-		
-		output += type + this.getString(R.string.emergency) + ": " + latest_event.getCategory() 
-				+ " " + latest_event.getAddress();
-		
-		n.setLatestEventInfo(this, e.getCategory(), output, contentIntent);
-		
-		//make the EAS noise
-		n.sound = Uri.parse("android.resource://com.maps.map/" +R.raw.eas);
-		
-		n.flags = Notification.FLAG_AUTO_CANCEL;
-		
-		//followed the vibration information in the CMAS spec
-		long[] pattern = {
-			    0, 2000, 500, 1000, 500, 1000,
-			    500, 2000, 500, 1000, 500, 1000,
-			    500, 2000, 500, 1000, 500, 1000};
-		n.vibrate = pattern;
-		mNotificationManager.notify((int)System.currentTimeMillis(), n);
-	}
+
+	//This updates the map based on messages that are sent
+	private ResultReceiver mReceiver = new ResultReceiver(null) {
+
+		@Override
+		protected void onReceiveResult(int resultCode, Bundle resultData) {
+			em.refresh();
+
+			//this Intent will tell the event list to also refresh
+			Intent j = new Intent ("REFRESH.RECEIVED");
+			sendBroadcast(j);
+
+			map.clear();
+
+			switch (resultCode){
+				//if the message is type 0 just zoom in on the person's current location
+				case 0:
+
+					if(curr_location != null) {
+						map.moveCamera(CameraUpdateFactory.newLatLngZoom(curr_location, 12));
+					}
+					break;
+
+				//if the message is type 1 just zoom in on the most recently added event
+				case 1:
+					LatLng point = new LatLng(resultData.getDouble("lat"),resultData.getDouble("long"));
+					if (point != null)
+					{
+						map.moveCamera(CameraUpdateFactory.newLatLngZoom(point, 12));
+						Log.d("OKAY", "point is alive we won");
+					}
+					else
+					{
+						Log.d("OKAY","point died rip");
+					}
+					break;
+			}
+
+			//add all the markers and circles for the items
+			ArrayList<EmergencyEvent> e = em.getAll();
+
+			//only show events that are supposed to be displayed (either because they are current or the user selected to show them)
+			for(int i = 0; i < e.size(); i++){
+				EmergencyEvent curr = e.get(i);
+				if(!curr.isDisplayed()) {
+					continue;
+				}
+				LatLng p = curr.getPoint();
+
+				CircleOptions oc = (new MapCircleOverlay(p, curr.getRadius(), curr.getEventLevel(), map.getCameraPosition().zoom)).getCircleOverlay();
+
+				if(curr.getEventLevel().equals("ADV")) {
+					map.addMarker(new MarkerOptions()
+							.position(p)
+							.title(curr.getCategory())
+							.snippet(""+curr.getId())
+							.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+				} else if (curr.getEventLevel().equals("WCH")) {
+					map.addMarker(new MarkerOptions()
+							.position(p)
+							.title(curr.getCategory())
+							.snippet(""+curr.getId())
+							.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
+				} else {
+					map.addMarker(new MarkerOptions()
+							.position(p)
+							.title(curr.getCategory())
+							.snippet(""+curr.getId())
+							.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+				}
+				map.addCircle(oc);
+			}
+
+			if(curr_location != null) {
+				map.addMarker(new MarkerOptions()
+						.position(curr_location)
+						.title("You")
+						.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+			}
+		}
+
+	};
+
 	
 	//update the map if the map mode or traffic mode gets changed
 	SharedPreferences.OnSharedPreferenceChangeListener prefs = 
@@ -462,31 +363,26 @@ public class MapRouteActivity extends FragmentActivity implements
 
 	@Override
 	public void onConnectionFailed(ConnectionResult arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void onConnected(Bundle arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void onStatusChanged(String provider, int status, Bundle extras) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void onProviderEnabled(String provider) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void onProviderDisabled(String provider) {
-		// TODO Auto-generated method stub
 		
 	}
 

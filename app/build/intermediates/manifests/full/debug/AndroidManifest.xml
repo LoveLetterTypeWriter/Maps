@@ -90,6 +90,10 @@
         </activity>
 
         <service
+            android:name="com.maps.map.MessageService"
+            android:label="@string/app_name" >
+        </service>
+        <service
             android:name="com.maps.map.WifiBroadcastService"
             android:label="@string/app_name" >
         </service>

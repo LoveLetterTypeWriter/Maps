@@ -11,15 +11,23 @@ import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.ResultReceiver;
+import android.util.Log;
 import android.widget.Toast;
+
+import com.google.android.gms.maps.model.LatLng;
 
 /**
  * Created by 1089C on 6/4/2015.
  */
 public class MessageService extends Service {
 
+    //TODO stop this service when the user specifies for the service to be turned off
+
     EmergencyEvent latest_event;
+    LatLng latest_point;
     EventManager em;
+    ResultReceiver mReceiver;
 
     @Override
     public void onCreate() {
@@ -29,7 +37,10 @@ public class MessageService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        registerReceiver(myReceiver, new IntentFilter("EMERGENCY.RECEIVED"));
+        //initialize receiver
+        mReceiver = intent.getParcelableExtra("receiver");
+        // Whenever we start this program, we want to make sure that we initialize the map properly so we send this Intent.
+        registerReceiver(eventReceiver, new IntentFilter("EMERGENCY.RECEIVED"));
         Intent i = new Intent ("EMERGENCY.RECEIVED");
         sendBroadcast(i);
         return super.onStartCommand(intent, flags, startId);
@@ -37,7 +48,7 @@ public class MessageService extends Service {
 
     @Override
     public void onDestroy() {
-        unregisterReceiver(myReceiver);
+        unregisterReceiver(eventReceiver);
         super.onDestroy();
     }
 
@@ -47,9 +58,7 @@ public class MessageService extends Service {
     }
 
     //Listens for event messages
-    //TODO: When messages are received, they should be put into a Bundle and given to MapRouteActivity if it is the active activity.
-    //TODO: Otherwise, put the messages into a bundle that will be given to the MapRouteActivity when it resumes
-    private BroadcastReceiver myReceiver = new BroadcastReceiver() {
+    private BroadcastReceiver eventReceiver = new BroadcastReceiver() {
 
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -94,25 +103,34 @@ public class MessageService extends Service {
                         //notify the user
                         makeNotification(latest_event);
 
+
                         //if an event just got canceled, just refresh the map
                         if(!latest_event.getType().equals("cancel")) {
-                            mHandler.sendEmptyMessage(2);
+                            mReceiver.send(2,null);
                         } else { //otherwise, zoom in on the new/updated event on the map
-                            mHandler.sendEmptyMessage(1);
+                            Bundle pointBundle = new Bundle();
+                            latest_point = latest_event.getPoint();
+                            b.putDouble("lat",latest_point.latitude);
+                            b.putDouble("long",latest_point.longitude);
+                            mReceiver.send(1,pointBundle);
                         }
                     }
 
                 } else if(b.getString("id")!=null) { //this happens when you click on a notification--you get sent to that particular event
                     latest_event = em.getSpecificEvent(b.getString("id"));
                     if(latest_event!=null) {
-                        mHandler.sendEmptyMessage(1);
+                        Bundle pointBundle = new Bundle();
+                        latest_point = latest_event.getPoint();
+                        b.putDouble("lat",latest_point.latitude);
+                        b.putDouble("long",latest_point.longitude);
+                        mReceiver.send(1, pointBundle);
                     } else { //the event has been deleted either by the user or by a "cancel" message, so there is no event to show anymore
                         Toast.makeText(context, context.getString(R.string.Deleted), Toast.LENGTH_LONG).show();
                     }
                 }
 
             } else { //if we were sent an Intent with no extras, we can assume that we just need to refresh the map
-                mHandler.sendEmptyMessage(2);
+                mReceiver.send(2, null);
             }
         }
     };

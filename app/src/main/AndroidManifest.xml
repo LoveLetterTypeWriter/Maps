@@ -83,8 +83,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.maps.map.TabMainActivity" />
         </activity>
-        
 
+        <service
+            android:name=".MessageService"
+            android:label="@string/app_name">
+
+        </service>
         
         <service
             android:name=".WifiBroadcastService"
